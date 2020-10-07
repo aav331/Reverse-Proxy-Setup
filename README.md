@@ -1,33 +1,41 @@
-
-# Cloud Foundation Toolkit Lab - 05-Load-Balancer
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https%3A%2F%2Fgithub.com%2Fterraform-google-modules%2Fcloud-foundation-training&cloudshell_git_branch=master&cloudshell_open_in_editor=main.tf&cloudshell_tutorial=README.md&cloudshell_working_dir=05-Load-Balancer)
-
 ## Prerequisite
 
-Complete previous labs
 * [00-Setup](https://github.com/terraform-google-modules/cloud-foundation-training/tree/master/00-Setup/README.md)
 
 You should have [Google Cloud SDK](https://cloud.google.com/sdk/docs/downloads-interactive) installed and configured before continuing, otherwise refer to [00-Setup](https://github.com/terraform-google-modules/cloud-foundation-training/tree/master/00-Setup/README.md)
 
 ## Internal TCP Load Balancer
 
-This lab helps you create a Global HTTP(S) Load Balancer using Cloud Foundation Toolkit.
+This resource helps you create an Internal Load Balancer using Cloud Foundation Toolkit and Terraform resources.
 
-At the end of this exercise, you'll have a global HTTP(S) Load Balancer with a single external IP backed by the Managed Instance Group VM instances you've created in the [04-Instance-Group](https://github.com/terraform-google-modules/cloud-foundation-training/tree/master/04-Instance-Group/README.md) labs.
+At the end of this, you'll have an internal TCP Load Balancer with a single internal IP backed by the Managed Instance Group VM instances you've created. A Serverless VPC Connector that will allow your Application deployed on App Engine to communicate with the network and make the API calls. 
 
 ### What You'll Learn
 
-* [terraform-google-lb-http](https://github.com/terraform-google-modules/terraform-google-lb-http)
-* [Global HTTP(S) Load Balancer](https://cloud.google.com/load-balancing/docs/https)
+* [terraform-google-lb-internal](https://github.com/terraform-google-modules/terraform-google-lb-internal)
+* [Internal TCP Load Balancer](https://cloud.google.com/load-balancing/docs/internal)
 
+## Task 1. Create IAM Role Bindings 
+Use the Cloud Foundation Toolkit [IAM](https://github.com/terraform-google-modules/terraform-google-iam) module in iam.tf to setup role bindings for a user or group. You can pick any user here for the demonstration: another account that belongs to you or someone you know.
 
-## Task 1. Create TCP Load Balancer
+## Task 2. Create Networking and Create Cloud NAT instance
+Use the Cloud Foundation Toolkit [Network](https://github.com/terraform-google-modules/terraform-google-network) module in network.tf to setup VPC network and [Cloud NAT](https://github.com/terraform-google-modules/terraform-google-cloud-nat) module to create a Cloud NAT instance and a Cloud Router and the terraform resource [Serverless VPC Connector](https://www.terraform.io/docs/providers/google/r/vpc_access_connector.html).
 
-Use the Cloud Foundation Toolkit [Global HTTP(S) Load Balancer](https://github.com/terraform-google-modules/terraform-google-lb-http) module in main.tf to create a Global HTTP Load Balancer with Managed Instance Group from [04-Instance-Group](https://github.com/terraform-google-modules/cloud-foundation-training/tree/master/04-Instance-Group/README.md) as the backend
+## Task 3. Create Firewalls
+Use the terraform resource [Firewall](https://www.terraform.io/docs/providers/google/r/compute_firewall.html) to create the firewall rules to allow traffic movement within your network
 
-**VPC Network**, **Cloud NAT**, **Instance Template** and **Managed Instance Group** provided in `network.tf` and `mig.tf`
+## Task 4. Create Instance Template 
+Use the Cloud Foundation Toolkit [Instance Template](https://github.com/terraform-google-modules/terraform-google-vm/tree/master/modules/instance_template) module in mig.tf to create an Instance Template
 
-## Task 2. Configurations
+## Task 5. Create Managed Instance Group
+Use the Cloud Foundation Toolkit [Managed Instance Group](https://github.com/terraform-google-modules/terraform-google-vm/tree/master/modules/mig) module in mig.tf to create a Managed Instance Group
+
+## Task 6. Create TCP Load Balancer
+Use the terraform resource [Forwarding Rule](https://www.terraform.io/docs/providers/google/r/compute_forwarding_rule.html) module and [Backend Service](https://www.terraform.io/docs/providers/google/r/compute_region_backend_service.html) in main.tf to create a Internal TCP Load Balancer with Managed Instance Group as the backend
+
+**VPC Network**, **Cloud NAT**, **Internal IP**, **External IP**, **Serverless VPC Connector**, **Instance Template** and **Managed Instance Group** provided in `network.tf` and `mig.tf`
+
+## Task 7. Configurations
 
 ### backend.tf
 
@@ -46,7 +54,7 @@ cp terraform.example.tfvars terraform.tfvars
 * using [terraform.tfvars](https://www.terraform.io/docs/configuration/variables.html#variable-definitions-tfvars-files)
 * command line argument `-var='key=value'`
 
-## Task 3. Terraform
+## Task 8. Terraform
 
 ### Terraform Init & Plan
 Initialize Terraform
@@ -67,16 +75,16 @@ Execute previous generated execution plan
 terraform apply plan.out
 ```
 
-## Task 4. Verify
+## Task 9. Verify
 
 On [Google Cloud Console](https://console.cloud.google.com/), navigate to **Network services -> Load balancing**
 
 Review the new **Load Balancer**
 
-From the output of `terraform apply`, you will see the External IP for load balancer (`load_balancer_ip`)
+From the output of `terraform apply`, you will see the Configuration details for load balancer
 
 
-## Task 5. Clean Up
+## Task 10. Clean Up
 
 Destroy resources created by Terraform
 
