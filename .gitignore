@@ -1,0 +1,5 @@
+terraform-gke-keyfile.json
+terraform.tfvars
+plan.out
+.terraform
+images
