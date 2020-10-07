@@ -22,7 +22,7 @@ Use the Cloud Foundation Toolkit [IAM](https://github.com/terraform-google-modul
 Use the Cloud Foundation Toolkit [Network](https://github.com/terraform-google-modules/terraform-google-network) module in network.tf to setup VPC network and [Cloud NAT](https://github.com/terraform-google-modules/terraform-google-cloud-nat) module to create a Cloud NAT instance and a Cloud Router and the terraform resource [Serverless VPC Connector](https://www.terraform.io/docs/providers/google/r/vpc_access_connector.html).
 
 ## Task 3. Create Firewalls
-Use the terraform resource [Firewall](https://www.terraform.io/docs/providers/google/r/compute_firewall.html) to create the firewall rules to allow traffic movement within your network
+Use the terraform resource [Firewall](https://www.terraform.io/docs/providers/google/r/compute_firewall.html) module in firewalls.tf to create the firewall rules to allow traffic movement within your network
 
 ## Task 4. Create Instance Template 
 Use the Cloud Foundation Toolkit [Instance Template](https://github.com/terraform-google-modules/terraform-google-vm/tree/master/modules/instance_template) module in mig.tf to create an Instance Template
