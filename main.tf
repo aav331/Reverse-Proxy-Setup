@@ -20,48 +20,6 @@ provider "google" {
   version = "~> 3.39.0"
 }
 
-/**
- * Task 1: Add a Global HTTP Load Balancer ("load_balancer")
- * - source: "GoogleCloudPlatform/lb-http/google"
- * - version: "~> 3.1.0"
- * - project: module.project_iam_bindings.projects[0]
- * - name: "lab05-http-load-balancer"
- * - firewall_networks: module.network.network_self_link
- * - target_tags: var.target_tags
- * - backends: (Set rest of inputs to null)
- *   - default
- *     - port_name: "http"
- *     - protocol: "HTTP"
- *     - port: 80
- *     - description: null
- *     - timeout_sec: null
- *     - connection_draining_timeout_sec: null
- *     - enable_cdn: null
- *     - health_check:
- *       - request_path: "/"
- *       - port: 80
- *       - check_interval_sec:  null
- *       - timeout_sec:         null
- *       - healthy_threshold:   null
- *       - unhealthy_threshold: null
- *       - host:                null
- *   - groups:
- *     - group: module.managed_instance_group.instance_group
- *     - balancing_mode: null
- *     - capacity_scaler: null
- *     - description: null
- *     - max_connections: null
- *     - max_connections_per_instance: null
- *     - max_connections_per_endpoint: null
- *     - max_rate: null
- *     - max_rate_per_instance: null
- *     - max_rate_per_endpoint: null
- *     - max_utilization: null
- *
- * Reference - https://github.com/terraform-google-modules/terraform-google-lb-http
- *
- */
-
 resource "google_compute_forwarding_rule" "default" {  
   name         = var.fr_name
   region       = var.region

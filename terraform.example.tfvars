@@ -15,3 +15,18 @@
  */
 
 project_id = "" # Insert Project ID here
+region = "" # Insert Region here
+target_tags = [] # Insert target tags here
+bucket_name = "" # Insert bucket name where state will be stored here
+iam_member = "" # Insert service account key in the following format (serviceAccount:key-name) here
+mig_hostname = "" # Insert Managed Instance Hostname here
+ext_ip_name = "" # Insert External IP address Name here
+network_name = "" # Insert Network name here
+subnet_name = "" # Insert Sub-Network name here
+internal_ip = "" # Insert Internal IP address name here
+router_name = "" # Insert Cloud NAT Router name here
+vpc_connector = "" # Insert Serverless VPC Connector name here
+service_account_id = "" # Insert Service Account ID to be used by the MIG here
+ports = [] # Insert the target ports here
+fr_name = "" # Insert the name of the Frontend of your ILB here
+ilb_name = "" # Insert name of your Internal Load Balancer here
