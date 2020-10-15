@@ -21,7 +21,3 @@ output "backend_services" {
 output "ilb-name" {
   value = google_compute_region_backend_service.default.name
 }
-
-output "startup-script" {
-  value = "${path.module}/templates/startupnginx.sh"
-}

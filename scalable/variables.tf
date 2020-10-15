@@ -63,6 +63,10 @@ variable "internal_ip" {
   description = "The internal IP address of the subnetwork"
 }
 
+variable "internal_ip_name"{
+  description = "The name of the internal IP address"
+}
+
 variable "router_name" {
   description = "The name of the Router that will be used to access the internet"
 }

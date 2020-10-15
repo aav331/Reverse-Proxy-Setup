@@ -34,7 +34,7 @@ module "network" {
 }
 
 resource "google_compute_address" "internal_with_subnet_and_address" {
-  name         = "cdle-sf-api-internal-address"
+  name         = var.internal_ip_name
   subnetwork   = module.network.subnets_self_links[0]
   address_type = "INTERNAL"
   address      = var.internal_ip
