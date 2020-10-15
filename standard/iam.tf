@@ -21,9 +21,6 @@ module "project_iam_bindings" {
   mode     = "additive"
 
   bindings = {
-    "roles/cloudfunctions.admin" = [
-      local.iam_member,
-    ]
     "roles/compute.admin" = [
       local.iam_member,
     ]
@@ -31,6 +28,12 @@ module "project_iam_bindings" {
       local.iam_member,
     ]
     "roles/iam.serviceAccountAdmin" = [
+      local.iam_member,
+    ]
+    "roles/iam.serviceAccountUser" = [
+      local.iam_member,
+    ]
+    "roles/vpcaccess.admin" = [
       local.iam_member,
     ]
     "roles/serviceusage.serviceUsageAdmin" = [

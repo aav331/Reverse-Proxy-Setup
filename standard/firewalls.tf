@@ -14,20 +14,6 @@
  * limitations under the License.
  */
 
-resource "google_compute_firewall" "default-lb-fw" {
-  project = module.project_iam_bindings.projects[0]
-  name    = "fw-allow-lb-access"
-  network = module.network.network_name
-
-  allow {
-    protocol = "all"
-  }
-
-  source_ranges = ["10.1.2.0/24", "10.3.4.0/24"]
-  direction = "INGRESS"
-
-}
-
 resource "google_compute_firewall" "default-lb-ssh" {
   project = module.project_iam_bindings.projects[0]
   name    = "fw-allow-ssh"
@@ -40,21 +26,6 @@ resource "google_compute_firewall" "default-lb-ssh" {
 
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["allow-ssh"]
-  direction = "INGRESS"
-
-}
-
-resource "google_compute_firewall" "default-lb-hc" {
-  project = module.project_iam_bindings.projects[0]
-  name    = "fw-allow-health-check"
-  network = module.network.network_name
-
-  allow {
-    protocol = "all"
-  }
-
-  source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
-  target_tags   = ["allow-health-check"]
   direction = "INGRESS"
 
 }

@@ -13,10 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-resource "google_compute_address" "external_ip_address" {
-  name = var.ext_ip_name
-  address_type = "EXTERNAL"
-}
 
 module "network" {
   source       = "terraform-google-modules/network/google"
@@ -34,11 +30,17 @@ module "network" {
 }
 
 resource "google_compute_address" "internal_with_subnet_and_address" {
-  name         = "cdle-sf-api-internal-address"
+  name         = var.internal_ip_name
   subnetwork   = module.network.subnets_self_links[0]
   address_type = "INTERNAL"
   address      = var.internal_ip
   region       = var.region
+  purpose      = "GCE_ENDPOINT"
+}
+
+resource "google_compute_address" "external_ip_address" {
+  name = var.ext_ip_name
+  address_type = "EXTERNAL"
 }
 
 module "cloud_nat" {

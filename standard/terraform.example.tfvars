@@ -27,6 +27,3 @@ internal_ip = "" # Insert Internal IP address name here
 router_name = "" # Insert Cloud NAT Router name here
 vpc_connector = "" # Insert Serverless VPC Connector name here
 service_account_id = "" # Insert Service Account ID to be used by the MIG here
-ports = [] # Insert the target ports here
-fr_name = "" # Insert the name of the Frontend of your ILB here
-ilb_name = "" # Insert name of your Internal Load Balancer here

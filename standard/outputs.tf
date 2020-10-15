@@ -14,14 +14,6 @@
  * limitations under the License.
  */
 
-output "backend_services" {
-  value = google_compute_region_backend_service.default.backend
-}
-
-output "ilb-name" {
-  value = google_compute_region_backend_service.default.name
-}
-
-output "startup-script" {
-  value = "${path.module}/templates/startupnginx.sh"
+output "compute_engine_configuration" {
+  value = module.compute_instance.instances_self_links
 }

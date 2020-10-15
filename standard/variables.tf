@@ -23,10 +23,6 @@ variable "region" {
   default     = "us-east1"
 }
 
-variable "ports" {
-  description = "Ports where the traffic will be routed"
-}
-
 variable "bucket_name" {
   description = "Bucket name where the state file will be stored"
 }
@@ -63,6 +59,10 @@ variable "internal_ip" {
   description = "The internal IP address of the subnetwork"
 }
 
+variable "internal_ip_name"{
+  description = "The name of the internal IP address"
+}
+
 variable "router_name" {
   description = "The name of the Router that will be used to access the internet"
 }
@@ -70,12 +70,3 @@ variable "router_name" {
 variable "vpc_connector" {
   description = "The name of the VPC connector"
 }
-
-variable "fr_name" {
-  description = "The name of the Forwarding rule"
-}
-
-variable "ilb_name" {
-  description = "The name of the Internal Load Balancer"
-}
-

@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-# This startup script creates a web server application used for testing
+# This startup script creates a Nginx Server as a Reverse Proxy used for testing
+
+provider "google" {
+  project = var.project_id
+  region  = var.region
+  version = "~> 3.39.0"
+}
+
 data "local_file" "instance_startup_script" {
   filename = "${path.module}/templates/startupnginx.sh"
 }
@@ -45,16 +52,12 @@ module "instance_template" {
   tags = var.target_tags
 }
 
-module "managed_instance_group" {
-  source            = "terraform-google-modules/vm/google//modules/mig"
-  version           = "~> 4.0.0"
-  project_id        = module.project_iam_bindings.projects[0]
+module "compute_instance" {
+  source            = "terraform-google-modules/vm/google//modules/compute_instance"
   region            = var.region
-  target_size       = 1
+  subnetwork        = module.network.subnets_self_links[0]
+  num_instances     = "1"
   hostname          = var.mig_hostname
   instance_template = module.instance_template.self_link
-  named_ports = [{
-    name = "http"
-    port = 80
-  }]
+  static_ips	      = [google_compute_address.internal_with_subnet_and_address.address]
 }

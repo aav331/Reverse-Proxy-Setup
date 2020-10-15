@@ -4,16 +4,15 @@
 
 You should have [Google Cloud SDK](https://cloud.google.com/sdk/docs/downloads-interactive) installed and configured before continuing, otherwise refer to [00-Setup](https://github.com/terraform-google-modules/cloud-foundation-training/tree/master/00-Setup/README.md)
 
-## Internal TCP Load Balancer
+## Compute Engine VM
 
-This resource helps you create an Internal Load Balancer using Cloud Foundation Toolkit and Terraform resources.
+This resource helps you create an Internal VM machine that is setup as a Nginx Reverse Proxy for making API calls from Application deployed on App Engine using a Serverless VPC Connector and Cloud NAT.
 
-At the end of this, you'll have an Internal TCP Load Balancer with a single internal IP backed by the Managed Instance Group VM instances you've created. A Serverless VPC Connector that will allow your Application deployed on App Engine to communicate with the network and make API calls. 
+At the end of this, you'll have an Internal Compute VM with a single internal IP. A Serverless VPC Connector that will allow your Application deployed on App Engine to communicate with the network. A Cloud NAT Router that will enable the Compute VM's to make the API calls. 
 
 ### What You'll Build
 
-* [terraform-google-lb-internal](https://github.com/terraform-google-modules/terraform-google-lb-internal)
-* [Internal TCP Load Balancer](https://cloud.google.com/load-balancing/docs/internal)
+* [Compute VM](https://github.com/terraform-google-modules/terraform-google-vm)
 
 ## Task 1. Create IAM Role Bindings 
 Use the Cloud Foundation Toolkit [IAM](https://github.com/terraform-google-modules/terraform-google-iam) module in iam.tf to setup role bindings for a user or group. You can pick any user here for the demonstration: another account that belongs to you or someone you know.
@@ -25,17 +24,14 @@ Use the Cloud Foundation Toolkit [Network](https://github.com/terraform-google-m
 Use the terraform resource [Firewall](https://www.terraform.io/docs/providers/google/r/compute_firewall.html) module in firewalls.tf to create the firewall rules to allow traffic movement within your network.
 
 ## Task 4. Create Instance Template 
-Use the Cloud Foundation Toolkit [Instance Template](https://github.com/terraform-google-modules/terraform-google-vm/tree/master/modules/instance_template) module in mig.tf to create an Instance Template. It contains the startup script that will setup the Compute Engine as an Nginx Reverse Proxy.
+Use the Cloud Foundation Toolkit [Instance Template](https://github.com/terraform-google-modules/terraform-google-vm/tree/master/modules/instance_template) module in main.tf to create an Instance Template. It contains the startup script that will setup the Compute Engine as an Nginx Reverse Proxy.
 
 ## Task 5. Create Managed Instance Group
-Use the Cloud Foundation Toolkit [Managed Instance Group](https://github.com/terraform-google-modules/terraform-google-vm/tree/master/modules/mig) module in mig.tf to create a Managed Instance Group.
+Use the Cloud Foundation Toolkit [Compute VM](https://github.com/terraform-google-modules/terraform-google-vm) module in main.tf to create a single Compute Engine Instance.
 
-## Task 6. Create TCP Load Balancer
-Use the terraform resource [Forwarding Rule](https://www.terraform.io/docs/providers/google/r/compute_forwarding_rule.html) module and [Backend Service](https://www.terraform.io/docs/providers/google/r/compute_region_backend_service.html) module in main.tf to create an Internal TCP Load Balancer with Managed Instance Group as the backend.
+**VPC Network**, **Cloud NAT**, **Internal IP**, **External IP**, **Serverless VPC Connector**, **Instance Template** and **Compute Engine VM** provided in `network.tf` and `main.tf`
 
-**VPC Network**, **Cloud NAT**, **Internal IP**, **External IP**, **Serverless VPC Connector**, **Instance Template** and **Managed Instance Group** provided in `network.tf` and `mig.tf`
-
-## Task 7. Configurations
+## Task 6. Configurations
 
 ### backend.tf
 
@@ -54,7 +50,7 @@ cp terraform.example.tfvars terraform.tfvars
 * using [terraform.tfvars](https://www.terraform.io/docs/configuration/variables.html#variable-definitions-tfvars-files)
 * command line argument `-var='key=value'`
 
-## Task 8. Terraform
+## Task 7. Terraform
 
 ### Terraform Init & Plan
 Initialize Terraform
@@ -75,16 +71,16 @@ Execute previous generated execution plan
 terraform apply plan.out
 ```
 
-## Task 9. Verify
+## Task 8. Verify
 
-On [Google Cloud Console](https://console.cloud.google.com/), navigate to **Network services -> Load balancing**
+On [Google Cloud Console](https://console.cloud.google.com/), navigate to **Compute Engine -> VM Instances**
 
-Review the new **TCP Load Balancer**
+Review the new **Compute Engine Instance**
 
-From the output of `terraform apply`, you will see the Configuration details for the load balancer
+From the output of `terraform apply`, you will see the Configuration details for the VM Instance
 
 
-## Task 10. Clean Up
+## Task 9. Clean Up
 
 Destroy resources created by Terraform
 
