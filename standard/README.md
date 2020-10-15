@@ -18,7 +18,7 @@ At the end of this, you'll have an Internal Compute VM with a single internal IP
 Use the Cloud Foundation Toolkit [IAM](https://github.com/terraform-google-modules/terraform-google-iam) module in iam.tf to setup role bindings for a user or group. You can pick any user here for the demonstration: another account that belongs to you or someone you know.
 
 ## Task 2. Create Networking, Cloud NAT instance and the Serverless VPC Connector
-Use the Cloud Foundation Toolkit [Network](https://github.com/terraform-google-modules/terraform-google-network) module in network.tf to setup VPC network and [Cloud NAT](https://github.com/terraform-google-modules/terraform-google-cloud-nat) module to create a Cloud NAT instance and a Cloud Router and the terraform resource [Serverless VPC Connector](https://www.terraform.io/docs/providers/google/r/vpc_access_connector.html) to create the VPC Connector that will allow communication between your Application hosted on App Engine and your network.
+Use the Cloud Foundation Toolkit [Network](https://github.com/terraform-google-modules/terraform-google-network) module in network.tf to setup VPC network and [Cloud NAT](https://github.com/terraform-google-modules/terraform-google-cloud-nat) module to create a Cloud NAT Instance and a Cloud Router and the terraform resource [Serverless VPC Connector](https://www.terraform.io/docs/providers/google/r/vpc_access_connector.html) to create the VPC Connector that will allow communication between your Application hosted on App Engine and your network.
 
 ## Task 3. Create Firewalls
 Use the terraform resource [Firewall](https://www.terraform.io/docs/providers/google/r/compute_firewall.html) module in firewalls.tf to create the firewall rules to allow traffic movement within your network.
@@ -26,7 +26,7 @@ Use the terraform resource [Firewall](https://www.terraform.io/docs/providers/go
 ## Task 4. Create Instance Template 
 Use the Cloud Foundation Toolkit [Instance Template](https://github.com/terraform-google-modules/terraform-google-vm/tree/master/modules/instance_template) module in main.tf to create an Instance Template. It contains the startup script that will setup the Compute Engine as an Nginx Reverse Proxy.
 
-## Task 5. Create Managed Instance Group
+## Task 5. Create Compute VM
 Use the Cloud Foundation Toolkit [Compute VM](https://github.com/terraform-google-modules/terraform-google-vm) module in main.tf to create a single Compute Engine Instance.
 
 **VPC Network**, **Cloud NAT**, **Internal IP**, **External IP**, **Serverless VPC Connector**, **Instance Template** and **Compute Engine VM** provided in `network.tf` and `main.tf`
