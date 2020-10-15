@@ -4,12 +4,12 @@
 
 You should have [Google Cloud SDK](https://cloud.google.com/sdk/docs/downloads-interactive) installed and configured before continuing, otherwise refer to [00-Setup](https://github.com/terraform-google-modules/cloud-foundation-training/tree/master/00-Setup/README.md)
 
-## Internal TCP Load Balancer
+## API Calls from App Engine
 
 The folder named standard helps you create an Internal VM machine that is setup as a Reverse Proxy for making API calls from the Application deployed on App Engine using a Serverless VPC Connector and Cloud NAT.
 The folder named scalable helps you to create an Internal Load Balancer for making API calls from the Application deployed on App Engine using a Serverless VPC Connector and Cloud NAT at scale using Cloud Foundation Toolkit and Terraform resources.
 
-At the end of this, you'll have an Internal TCP Load Balancer with a single internal IP backed by the Managed Instance Group VM instances you've created. A Serverless VPC Connector that will allow your Application deployed on App Engine to communicate with the network and make API calls. 
+At the end of this, you'll have an Internal TCP Load Balancer with a single internal IP backed by the Managed Instance Group VM instances you've created. A Serverless VPC Connector that will allow your Application deployed on App Engine to communicate with the network. A Cloud NAT Router that will enable the Compute VM's to make the API calls. 
 
 ### What You'll Build
 
