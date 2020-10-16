@@ -44,6 +44,7 @@ module "instance_template" {
   subnetwork           = module.network.subnets_self_links[0]
   source_image_family  = "debian-9"
   source_image_project = "debian-cloud"
+  machine_type         = var.type_machine
   startup_script       = data.local_file.instance_startup_script.content
   service_account = {
     email  = google_service_account.instance_group.email
