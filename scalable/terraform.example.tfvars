@@ -20,6 +20,7 @@ target_tags = [] # Insert target tags here
 bucket_name = "" # Insert bucket name where state will be stored here
 iam_member = "" # Insert service account key in the following format (serviceAccount:key-name) here
 mig_hostname = "" # Insert Managed Instance Hostname here
+type_machine = "" # Insert the Machine Type of the Compute Instance here
 ext_ip_name = "" # Insert External IP address Name here
 network_name = "" # Insert Network name here
 subnet_name = "" # Insert Sub-Network name here

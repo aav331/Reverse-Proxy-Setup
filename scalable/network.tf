@@ -16,6 +16,7 @@
 resource "google_compute_address" "external_ip_address" {
   name = var.ext_ip_name
   address_type = "EXTERNAL"
+  project = module.project_iam_bindings.projects[0]
 }
 
 module "network" {

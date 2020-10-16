@@ -39,6 +39,10 @@ variable "mig_hostname" {
   description = "The name of the Managed Instance Hostname group"
 }
 
+variable "type_machine" {
+  description = "The Machine Type of the instance"
+}
+
 variable "target_tags" {
   description = "Network Tags to add to Managed Instance Group VMs"
 }
