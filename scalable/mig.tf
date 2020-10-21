@@ -51,11 +51,28 @@ module "managed_instance_group" {
   version           = "~> 4.0.0"
   project_id        = module.project_iam_bindings.projects[0]
   region            = var.region
-  target_size       = 1
   hostname          = var.mig_hostname
   instance_template = module.instance_template.self_link
   named_ports = [{
     name = "http"
     port = 80
   }]
+}
+
+resource "google_compute_region_autoscaler" "autoscaler" {
+  name     = "${var.mig_hostname}-autoscaler"
+  project  = module.project_iam_bindings.projects[0]
+  region   = var.region
+
+  target = module.managed_instance_group.self_link
+
+  autoscaling_policy {
+    max_replicas    = 5
+    min_replicas    = 1
+    cooldown_period = 60
+
+    cpu_utilization {
+      target = 0.6
+    }
+  }
 }
