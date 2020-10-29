@@ -27,8 +27,8 @@ Use the terraform resource [Firewall](https://www.terraform.io/docs/providers/go
 ## Task 4. Create Instance Template 
 Use the Cloud Foundation Toolkit [Instance Template](https://github.com/terraform-google-modules/terraform-google-vm/tree/master/modules/instance_template) module in mig.tf to create an Instance Template. It contains the startup script that will setup the Compute Engine as an Nginx Reverse Proxy.
 
-## Task 5. Create Managed Instance Group
-Use the Cloud Foundation Toolkit [Managed Instance Group](https://github.com/terraform-google-modules/terraform-google-vm/tree/master/modules/mig) module in mig.tf to create a Managed Instance Group.
+## Task 5. Create Managed Instance Group and the Auto-Scaler
+Use the Cloud Foundation Toolkit [Managed Instance Group](https://github.com/terraform-google-modules/terraform-google-vm/tree/master/modules/mig) module in mig.tf to create a Managed Instance Group and the Terraform Resource [Autoscaler](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_region_autoscaler) to create the Autoscale rule for the Managed Instance Group.
 
 ## Task 6. Create TCP Load Balancer
 Use the terraform resource [Forwarding Rule](https://www.terraform.io/docs/providers/google/r/compute_forwarding_rule.html) module and [Backend Service](https://www.terraform.io/docs/providers/google/r/compute_region_backend_service.html) module in main.tf to create an Internal TCP Load Balancer with Managed Instance Group as the backend.
