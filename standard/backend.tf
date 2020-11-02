@@ -16,7 +16,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "cft-lab-state-adi-cft-12468d54" # GCS bucket for Terraform Remote State
+    bucket = "" # GCS bucket for Terraform Remote State
     prefix = "api-network-standard"
   }
 }
